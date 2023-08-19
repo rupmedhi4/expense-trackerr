@@ -1,0 +1,114 @@
+.auth {
+    margin: 3rem auto;
+    width: 50%;
+    max-width: 20rem;
+    border-radius: 20px;
+    background-color: rgba(239, 233, 233, 0.306);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    text-align: center;
+    display: block;
+  }
+  
+  .auth h1 {
+   color: black;
+  font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 40px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+  }
+  .login{
+    height: 460px;
+    background: #eee;
+    border-radius: 60% / 10%;
+    transform: translateY(-180px);
+    transition: .8s ease-in-out;
+  }
+  .login label{
+    color: #573b8a;
+    transform: scale(.6);
+  }
+  
+  #chk:checked ~ .login{
+    transform: translateY(-500px);
+  }
+  #chk:checked ~ .login label{
+    transform: scale(1);	
+  }
+  #chk:checked ~ .signup label{
+    transform: scale(.6);
+  }
+  
+  
+  .control input{
+    display: block;
+    height: 50px;
+    width: 95%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 0 10px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 300;
+}
+  .control input :hover{
+    background-color: #c7c1c1;
+  }
+  .actions {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .actions button {
+    cursor: pointer;
+    font: inherit;
+    color: white;
+    background-color: #e01da6;
+    border: 1px solid #e01da6;
+    border-radius: 4px;
+    padding: 0.5rem 2.5rem;
+  }
+  
+  .actions button:hover {
+    background-color: #873abb;
+    border-color: #873abb;
+  }
+  
+  .actions .toggle {
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-top: 1rem;
+    background-color: transparent;
+    color: #e04de0;
+    border: none;
+    padding: 0.15rem 1.5rem;
+  }
+  
+  .actions .toggle:hover {
+    background-color: transparent;
+    color: #34890c;
+  }
+ button{
+  width: 100%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 20px;
+	outline: none;
+	border: none;
+	border-radius: 20px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+
+ 
