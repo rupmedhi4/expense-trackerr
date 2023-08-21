@@ -1,0 +1,17 @@
+.profile{
+    padding: 20px;
+display: inline-flex;
+}
+hr{
+
+    width: 100%;
+}
+.incomplete{
+    margin-left: 62rem;
+    border: 2px solid rgb(240, 233, 233);
+    background-color: rgb(244, 212, 213);
+    border-radius: 5px;
+}
+a{
+    text-decoration: none;
+}

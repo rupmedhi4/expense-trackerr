@@ -1,0 +1,51 @@
+.profile{
+    padding: 20px;
+display: inline-flex;
+}
+hr{
+
+    width: 100%;
+}
+.profileStatus{
+    margin-left: 50rem;
+   display: inline-block;
+    border: 2px solid rgb(240, 233, 233);
+    background-color: rgb(244, 212, 213);
+    border-radius: 10px;
+}
+a{
+    text-decoration: none;
+    color: blue;
+}
+.percent{
+    font-weight:bold;
+}
+.details{
+   margin-left: 500px;
+}
+.input{
+    margin: 30px;
+}
+span{
+    margin: 5px;
+}
+.btn{
+    border: 2px solid wheat;
+    border-radius: 5px;
+    background-color: rgb(176, 86, 40);
+    
+    width: 80px;
+    margin-right: 80rem;
+}
+.cancel{
+    border: 2px solid red;
+    border-radius: 5px;
+    margin-left: 400px;
+   background-color: white;
+   color: red;
+   width: 80px;
+}
+.contact{
+    display: inline-flex;
+
+}
