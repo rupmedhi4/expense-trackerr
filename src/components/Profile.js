@@ -5,12 +5,15 @@ import {FiGlobe} from "react-icons/fi";
 import AuthContext from './store/AuthContext';
 
 export default function Profile() {
+  
 const context=useContext(AuthContext);
     const nameRef=useRef();
      const imageRef=useRef();
     async function submitHandler(event){
         event.preventDefault();
-        
+        if(nameRef.current.value==="" ||imageRef.current.value===""){
+  alert('Enter full details');
+        }
      const res= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
         method:'POST',
       
@@ -34,6 +37,7 @@ const context=useContext(AuthContext);
       alert('failed')
             
         }  
+        
     }
     useEffect(() => {
       const updateAccount = async () => {
@@ -51,7 +55,6 @@ const context=useContext(AuthContext);
           if (response.ok) {
             const responseData = await response.json();
             const users = responseData.users;
-        console.log(users);
        
             if (users && users.length > 0) {
               const [{ displayName, photoUrl }] = users;
@@ -80,7 +83,7 @@ const context=useContext(AuthContext);
         </div>
       </div>
       <hr></hr>
-    <form className='details' onSubmit={submitHandler}>
+    <div className='details' >
         <div className='contact'>
         <h1>Contact Details</h1>
         <button className='cancel'>Cancel</button></div>
@@ -90,8 +93,8 @@ const context=useContext(AuthContext);
         <label htmlFor='photo'><span><FiGlobe/></span>Profile Photo URL:</label>
         <input type='text' name='img' className='input' ref={imageRef}></input>
         </div>
-        <button className='btn'>Update</button>
-    </form>
+        <button className='btn' onClick={submitHandler}>Update</button>
+    </div>
     </div>
   )
 }

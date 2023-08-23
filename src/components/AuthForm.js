@@ -2,6 +2,7 @@ import {useContext, useRef, useState } from 'react';
 import AuthContext from './store/AuthContext';
 import classes from './AuthForm.module.css';
 import { useNavigate} from 'react-router-dom';
+
 const AuthForm = () => {
   const navigate=useNavigate();
   const context=useContext(AuthContext);
@@ -13,7 +14,7 @@ const AuthForm = () => {
     setAction((data)=>
     !data);
   }
- function submitHandler(event){
+ async function submitHandler(event){
 event.preventDefault();
 
 const enterdEmail=emailRef.current.value;
@@ -26,7 +27,7 @@ else{
   url='https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM'
   
 }
-fetch(url,{
+await fetch(url,{
     method:'POST',
     body:JSON.stringify({
       email:enterdEmail,
@@ -38,6 +39,8 @@ fetch(url,{
     }
   }).then((res)=>{
     if(res.ok){
+      navigate('/confirmEmail');
+     
 return res.json();
     }else{
       return res.json().then((data)=>{
@@ -52,11 +55,40 @@ return res.json();
   .then((data)=>{
     context.login(data.idToken);
     console.log("succes");
-    navigate('/NavigateProfile');
   })
   .catch((err)=>{
     alert(err.message);
   })
+  
+ 
+try{
+  const resVerify= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
+        method:'POST',
+      
+        body:JSON.stringify({
+          requestType:"VERIFY_EMAIL",
+            idToken:context.token,
+            }),
+            
+            headers:{
+                'Content-Type':'application/json'
+              }
+      })
+        if(resVerify.ok){
+         
+    console.log(resVerify.json());
+    
+        }else{
+         
+      alert('failed to verify')
+            
+        } 
+      } 
+        catch (INVALID_ID_TOKEN) {
+          console.error('Error updating account:', INVALID_ID_TOKEN);
+
+        }
+ 
  }
   return (
     <section className={classes.auth}>
@@ -90,7 +122,7 @@ return res.json();
         </div>:<div></div>}
        
        
-        <button  id='log' >{!action?'Sign Up':'Login'}</button>
+        <button  id='log'>{!action?'Sign Up':'Login'}</button>
         <div className={classes.actions} onClick={signUpHandle}>
           <button type='button' className={classes.toggle} >
           {!action? 'Have an account?Login':"Don't have an account?Sign Up"}
