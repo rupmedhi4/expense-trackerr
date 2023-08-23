@@ -39,7 +39,7 @@ await fetch(url,{
     }
   }).then((res)=>{
     if(res.ok){
-      navigate('/confirmEmail');
+     
      
 return res.json();
     }else{
@@ -55,6 +55,7 @@ return res.json();
   .then((data)=>{
     context.login(data.idToken);
     console.log("succes");
+    navigate('/confirmEmail');
   })
   .catch((err)=>{
     alert(err.message);
@@ -80,12 +81,12 @@ try{
     
         }else{
          
-      alert('failed to verify')
+      console.log('failed to verify');
             
         } 
       } 
-        catch (INVALID_ID_TOKEN) {
-          console.error('Error updating account:', INVALID_ID_TOKEN);
+        catch (error) {
+          console.error('Error updating account:', error);
 
         }
  
@@ -120,7 +121,9 @@ try{
             required
           />
         </div>:<div></div>}
-       
+       <div className={classes.reset}>
+        <a href='/PasswordReset'>Forgot password?</a>
+       </div>
        
         <button  id='log'>{!action?'Sign Up':'Login'}</button>
         <div className={classes.actions} onClick={signUpHandle}>
