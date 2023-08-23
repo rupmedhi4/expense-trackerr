@@ -9,6 +9,10 @@ export default function Profile() {
 const context=useContext(AuthContext);
     const nameRef=useRef();
      const imageRef=useRef();
+
+     function logOutHandler(){
+      context.logout();
+     }
     async function submitHandler(event){
         event.preventDefault();
         if(nameRef.current.value==="" ||imageRef.current.value===""){
@@ -86,7 +90,10 @@ const context=useContext(AuthContext);
     <div className='details' >
         <div className='contact'>
         <h1>Contact Details</h1>
-        <button className='cancel'>Cancel</button></div>
+        <button className='cancel'>Cancel</button>
+        <a href='/'><button className='logout' onClick={logOutHandler} >Logout</button></a>
+        </div>
+        
         <div className='form'>
         <label htmlFor='name'><span><FaGithub/></span>Name:</label>
         <input type='text' name='name' className='input' ref={nameRef}></input>
