@@ -42,42 +42,15 @@ export default function LoginForm() {
         }
       })
       .then((data)=>{
-       
+        navigate("/NavigateProfile")
         context.login(data.idToken);
         console.log("succes");
       })
       .catch((err)=>{
         alert(err.message);
       })
-      try{
-        const resVerify= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
-              method:'POST',
-            
-              body:JSON.stringify({
-                requestType:"VERIFY_EMAIL",
-                  idToken:context.token,
-                  }),
-                  
-                  headers:{
-                      'Content-Type':'application/json'
-                    }
-            })
-              if(resVerify.ok){
-                navigate('/NavigateProfile');
-          console.log(resVerify.json());
-          
-              }else{
-               
-            alert('failed to verify')
-                  
-              } 
-            } 
-              catch (error) {
-                console.error('Error updating account:', error);
       
-              }
-              
-    }
+  }
    
   return (
     <div>

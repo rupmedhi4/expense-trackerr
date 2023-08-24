@@ -13,7 +13,7 @@ function App() {
  <div>
 
 <Routes>
- <Route path="/" element={<AuthForm/>}></Route>
+ {!context.isLogin &&<Route path="/" element={<AuthForm/>}></Route>}
   {context.isLogin &&<Route path="/NavigateProfile" element={<NavigateProfile></NavigateProfile>}></Route>}
   {context.isLogin &&<Route path="/profile" element={<Profile></Profile>}></Route>}
   {context.isLogin &&<Route path="/confirmEmail" element={<ConfirmEmail></ConfirmEmail>}></Route>}

@@ -4,7 +4,7 @@ export default function Profile() {
   return (
     <div>
     <div className='profile'>
-      Welcome to expence tracker!!!
+      <h1 className='welcome'>Welcome To Expence Tracker!!!</h1>
      <div className='incomplete'>
         Your profile is incomplete.<a href='/profile'>complete now</a>
      </div>

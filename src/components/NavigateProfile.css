@@ -1,17 +1,26 @@
 .profile{
-    padding: 20px;
-display: inline-flex;
+   
+justify-content: center;
+text-align: center;
 }
 hr{
 
     width: 100%;
 }
 .incomplete{
-    margin-left: 62rem;
-    border: 2px solid rgb(240, 233, 233);
+    margin-left: 10rem;
+    border: 1px solid rgb(240, 233, 233);
     background-color: rgb(244, 212, 213);
-    border-radius: 5px;
+    border-radius: 10px;
+    height: 30px;
+    width:fit-content;
+    padding: 4px;
+    margin-top: 20px;
 }
 a{
     text-decoration: none;
+}
+.welcome{
+    margin-left: 32rem;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }

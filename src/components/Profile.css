@@ -6,12 +6,27 @@ hr{
 
     width: 100%;
 }
+.input{
+   
+    display: block;
+    height: 40px;
+    width: 30%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 0 10px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
 .profileStatus{
-    margin-left: 50rem;
-   display: inline-block;
+    margin-left: 32rem;
+   
     border: 2px solid rgb(240, 233, 233);
     background-color: rgb(244, 212, 213);
     border-radius: 10px;
+    height:40px;
+    padding: 5px;
 }
 a{
     text-decoration: none;
@@ -22,10 +37,15 @@ a{
 }
 .details{
    margin-left: 500px;
+   
 }
-.input{
-    margin: 30px;
+.form{
+    background-color: rgb(228, 220, 247);
+   width: 40rem;
+   padding: 1rem;
+   border-radius: 10px;
 }
+
 span{
     margin: 5px;
 }
@@ -40,15 +60,17 @@ span{
 .cancel{
     border: 2px solid red;
     border-radius: 5px;
-    margin-left: 400px;
+    margin-left: 300px;
    background-color: white;
    color: red;
    width: 80px;
+   
 }
 .logout{
     border: 2px solid rgb(21, 21, 21);
     border-radius: 5px;
-    margin-left: 5px;
+   justify-content: end;
+   margin-left: 88rem;
    background-color:  #573b8a;
    color: white;
    width: 80px;
@@ -57,3 +79,103 @@ span{
     display: inline-flex;
 
 }
+h1{
+    margin-bottom: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.new-expense__controls {
+ display: inline-flex;
+    flex-wrap: wrap;
+  margin-top: 20px;
+    width: 80rem;
+    text-align: left;
+    background-color:white;
+    padding: 1rem;
+    margin-left: 90px;
+   
+    
+   
+    border-radius: 12px;
+    
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  }
+  
+  .new-expense__control label {
+    font-weight: bold;
+    margin-left: 20px;
+    display: inline;
+  }
+  
+  .new-expense__control input {
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 10rem;
+    max-width: 100%;
+    margin-right: 10px;
+  }
+  
+  .new-expense__actions {
+    text-align: right;
+  }
+  .new-expense__control .data {
+    
+    
+    border: 1px solid #40005d;
+    background-color: #40005d;
+    color: white;
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 10rem;
+    max-width: 100%;
+   margin-left: 30rem;
+   margin-top: 40px;
+  }
+  body{
+    background-color:rgb(245, 241, 250);
+  }
+  .transaction{
+    display: inline-flex;
+    flex-wrap: wrap;
+  margin-top: 20px;
+    width: 80rem;
+    text-align: center;
+    background-color:white;
+    padding: 1rem;
+    margin-left: 90px;
+    font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+    border-radius: 12px;
+    
+    
+  }
+   .transaction th{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: right;
+   background-color:#40005d; ;
+    color: white;
+  }
+  
+  .transaction th,.transaction td{
+    padding-left: 50px;
+    padding-right: 50px;
+    justify-content: center;
+  }
+  .heading{
+    border: 2px solid black;
+  }
+  .edit{
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-left: 50px;
+    
+  }
+  .delete{
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-left: 20px;
+  }
