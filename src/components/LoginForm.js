@@ -8,7 +8,7 @@ export default function LoginForm() {
     const navigate=useNavigate();
     const emailRef=useRef();
   const passwordRef=useRef();
-  async function submitHandler(event){
+   function submitHandler(event){
     event.preventDefault();
     
     const enterdEmail=emailRef.current.value;
@@ -16,7 +16,7 @@ export default function LoginForm() {
     
      let url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM'
     
-    await fetch(url,{
+    fetch(url,{
         method:'POST',
         body:JSON.stringify({
           email:enterdEmail,
@@ -42,14 +42,52 @@ export default function LoginForm() {
         }
       })
       .then((data)=>{
-        navigate("/NavigateProfile")
+       
         context.login(data.idToken);
+        navigate("/NavigateProfile")
         console.log("succes");
       })
       .catch((err)=>{
         alert(err.message);
       })
+      try{
+        fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
+              method:'POST',
+            
+              body:JSON.stringify({
+                requestType:"VERIFY_EMAIL",
+                  idToken:context.token,
+                  }),
+                  
+                  headers:{
+                      'Content-Type':'application/json'
+                    }
+            }).then((resVerify)=>{
+              if(resVerify.ok){
+                  
+               
+          return resVerify.json();
+              }else{
+                return resVerify.json().then((data)=>{
+                  
+                  let errorMessage='Not Verify!';
+                  
+                  
+                 throw new Error(errorMessage);
+                })
+              }
+            })
+            .then((data)=>{
+             
+              
+              console.log("succes");
+            })
+          }
+              catch (error) {
+                console.error('Error updating account:', error);
       
+              }
+       
   }
    
   return (

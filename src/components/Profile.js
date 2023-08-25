@@ -1,29 +1,72 @@
 import React,{useContext, useRef,useEffect, useState} from 'react'
 import './Profile.css';
+import axios from 'axios';
 import { FaGithub } from "react-icons/fa6";
 import {FiGlobe} from "react-icons/fi";
 import AuthContext from './store/AuthContext';
 
 export default function Profile() {
-  
-  const[description,setDescription]=useState('');
-  const[amount,setAmount]=useState(null);
-  const[date,setDate]=useState('');
-  const[category,setCategory]=useState('');
-  const[listData,setListData]=useState([]);
-  function listHandler(){
-    setListData((listData)=>{
-const list=([...listData,{category,date,description,amount}]);
-setListData(list)
-return list;
-
-    })
-   
-}
-const context=useContext(AuthContext);
+  const context=useContext(AuthContext);
     const nameRef=useRef();
      const imageRef=useRef();
-  
+ 
+  const[data,setData]=useState({
+    category:'',
+    date:'',
+    description:'',
+   amount:''
+
+});
+
+  const[listData,setListData]=useState([]);
+
+  let {category,date,description,amount}=data;
+  function listHandler(e){
+    e.preventDefault();
+    fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense.json`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
+   
+    
+        setListData([...listData, {category,date,description,amount}]);
+      
+        }
+
+function handle(e){
+  let name=e.target.name;
+  let value=e.target.value;
+  setData({...data,[name]:value})
+  }
+      
+  useEffect(() => {
+    axios.get(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense.json`)
+    .then((response) => {
+          
+          const post=[];
+          for(let key in response.data){
+              post.push({...response.data[key],id:key})
+          }
+          
+          setListData([...post])
+        })
+      .catch((error) => {
+          console.error('Fetch error:', error);
+        });
+    },[])
+     
   
      function logOutHandler(){
       context.logout();
@@ -126,7 +169,7 @@ const context=useContext(AuthContext);
               <div className='new-expense__controls'>
                    <div className='new-expense__control'>
                    <label>Category: </label>
-                  <select type='select' value={category} onChange={(e)=>{setCategory(e.target.value)}}>
+                  <select type='select' value={data.category} name='category' onChange={handle}>
                   <option value="select">Select</option>
                    <option value="Bills and EMI's">Bills and EMI's</option>
                     <option value="Sports">Sports</option>
@@ -138,15 +181,15 @@ const context=useContext(AuthContext);
                     <option value="Others">Others</option>
                     </select>
                     <label>Amount: </label>
-                    <input type='number' value={amount} onChange={(e)=>{setAmount(e.target.value)}}></input>
+                    <input type='number' value={data.amount} name='amount' onChange={handle}></input>
                    </div>
                    <div className='new-expense__control'>
                     <label>Description: </label>
-                    <input type='text' value={description} onChange={(e)=>{setDescription(e.target.value)}}></input>
+                    <input type='text' value={data.description} name='description' onChange={handle}></input>
                    </div>
                    <div className='new-expense__control'>
                     <label>Date: </label>
-                    <input type='date' min="2019-1-1" max="2023-12-31" value={date} onChange={(e)=>{setDate(e.target.value)}}></input>
+                    <input type='date' min="2019-1-1" max="2023-12-31" value={data.date} name='date' onChange={handle}></input>
                    </div>
                    <div className='new-expense__control'>
                  <input type='button' className="data" value="Add Expense" onClick={listHandler} ></input>
@@ -166,22 +209,21 @@ const context=useContext(AuthContext);
                   </tr>
                 </thead>
                 <tbody>
-              {listData.map((t)=>(
+                {listData.map((t) => (
+              t && t.date ? (
                 <tr key={t.id}>
-                <td><h3>{t.date}</h3></td>
-                <td>{t.category}</td>
-                <td>{t.description}</td>
-                <td>{t.amount}</td>
-                <td><button className='edit'>Edit</button></td>
-                <td><button className='delete'>Delete</button></td>
+                  <td><h3>{t.date}</h3></td>
+                  <td>{t.category}</td>
+                  <td>{t.description}</td>
+                  <td>{t.amount}</td>
+                  <td><button className='edit'>Edit</button></td>
+                  <td><button className='delete'>Delete</button></td>
                 </tr>
-    
-              ))}
+              ) : null
+            ))}
                 </tbody>
               </table>
               </div>
-              
-    </div>
-  
-  )
-}
+             </div>
+             )
+       }

@@ -23,6 +23,8 @@ export default function PasswordReset() {
                     }
             })
               const data=resetPassword.json();
+            localStorage.setItem('email',email)
+
             } 
               catch (error) {
                 console.error('Error updating account:', error);

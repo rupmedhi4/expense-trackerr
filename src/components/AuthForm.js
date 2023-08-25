@@ -27,43 +27,42 @@ else{
   url='https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM'
   
 }
-await fetch(url,{
-    method:'POST',
-    body:JSON.stringify({
-      email:enterdEmail,
-      password:enterdPassword,
-      returnSecureToken:true
-    }),
-    headers:{
-      'Content-Type':'application/json'
-    }
-  }).then((res)=>{
-    if(res.ok){
-     
-     
+fetch(url,{
+  method:'POST',
+  body:JSON.stringify({
+    email:enterdEmail,
+    password:enterdPassword,
+    returnSecureToken:true
+  }),
+  headers:{
+    'Content-Type':'application/json'
+  }
+}).then((res)=>{
+  if(res.ok){
+      
+   
 return res.json();
-    }else{
-      return res.json().then((data)=>{
-        
-        let errorMessage='Authentication failed!';
-        
-        
-       throw new Error(errorMessage);
-      })
-    }
-  })
-  .then((data)=>{
-    context.login(data.idToken);
-    console.log("succes");
-    navigate('/confirmEmail');
-  })
-  .catch((err)=>{
-    alert(err.message);
-  })
-  
+  }else{
+    return res.json().then((data)=>{
+      
+      let errorMessage='Authentication failed!';
+      
+      
+     throw new Error(errorMessage);
+    })
+  }
+})
+.then((data)=>{
  
+  context.login(data.idToken);
+  navigate("/confirmEmail")
+  console.log("succes");
+})
+.catch((err)=>{
+  alert(err.message);
+})
 try{
-  const resVerify= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
+  fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
         method:'POST',
       
         body:JSON.stringify({
@@ -74,17 +73,24 @@ try{
             headers:{
                 'Content-Type':'application/json'
               }
-      })
+      }).then((resVerify)=>{
         if(resVerify.ok){
-         
-    console.log(resVerify.json());
-    
-        }else{
-         
-      console.log('failed to verify');
             
-        } 
-      } 
+         
+    return resVerify.json();
+        }else{
+          return resVerify.json().then((data)=>{
+            
+           alert('Not verify')
+          })
+        }
+      })
+      .then((data)=>{
+       
+        
+        console.log("succes");
+      })
+    }
         catch (error) {
           console.error('Error updating account:', error);
 
