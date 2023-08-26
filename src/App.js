@@ -7,6 +7,7 @@ import Profile from "./components/Profile";
 import LoginForm from "./components/LoginForm";
 import PasswordReset from "./components/PasswordReset";
 import AuthContext from "./components/store/AuthContext";
+import Update from "./components/Update";
 function App() {
   const  context=useContext(AuthContext);
   return (
@@ -18,6 +19,7 @@ function App() {
   {context.isLogin &&<Route path="/profile" element={<Profile></Profile>}></Route>}
   {context.isLogin &&<Route path="/confirmEmail" element={<ConfirmEmail></ConfirmEmail>}></Route>}
   {context.isLogin &&<Route path="/LoginForm" element={<LoginForm></LoginForm>}></Route>}
+  {context.isLogin &&<Route path="/update/:id" element={<Update></Update>}></Route>}
   {!context.isLogin &&<Route path="/PasswordReset" element={<PasswordReset></PasswordReset>}></Route>}
   <Route path="*" element={<Navigate to="/" />} />
 </Routes>

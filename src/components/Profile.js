@@ -4,23 +4,26 @@ import axios from 'axios';
 import { FaGithub } from "react-icons/fa6";
 import {FiGlobe} from "react-icons/fi";
 import AuthContext from './store/AuthContext';
+import { Link } from 'react-router-dom';
+
 
 export default function Profile() {
+ 
   const context=useContext(AuthContext);
     const nameRef=useRef();
      const imageRef=useRef();
  
   const[data,setData]=useState({
-    category:'',
     date:'',
-    description:'',
+    category:'',
+   description:'',
    amount:''
 
 });
 
   const[listData,setListData]=useState([]);
 
-  let {category,date,description,amount}=data;
+  let {date,category,description,amount}=data;
   function listHandler(e){
     e.preventDefault();
     fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense.json`, {
@@ -41,8 +44,8 @@ export default function Profile() {
     });
    
     
-        setListData([...listData, {category,date,description,amount}]);
-      
+        setListData([...listData, {date,category,description,amount}]);
+      setData({date:'',category:'',description:'',amount:''});
         }
 
 function handle(e){
@@ -50,6 +53,8 @@ function handle(e){
   let value=e.target.value;
   setData({...data,[name]:value})
   }
+  
+  
       
   useEffect(() => {
     axios.get(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense.json`)
@@ -135,7 +140,16 @@ function handle(e){
         updateAccount();
       }
     }, [context.token]);
-    
+
+    const remove=(id)=>{
+      fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense/${id}.json`, {
+        method: "DELETE",
+      })
+      const arr = listData.filter((item)=>item.id !== id);
+      setListData(arr);
+    }
+  
+   
   return (
     <div>
       <div className='profile'>
@@ -216,8 +230,8 @@ function handle(e){
                   <td>{t.category}</td>
                   <td>{t.description}</td>
                   <td>{t.amount}</td>
-                  <td><button className='edit'>Edit</button></td>
-                  <td><button className='delete'>Delete</button></td>
+                  <td><Link to={`/update/${t.id}`} className='edit'>Edit</Link></td>
+                  <td><button className='delete' onClick={() => remove(t.id)}>Delete</button></td>
                 </tr>
               ) : null
             ))}
