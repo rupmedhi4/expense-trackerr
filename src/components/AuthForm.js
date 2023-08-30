@@ -1,11 +1,12 @@
-import {useContext, useRef, useState } from 'react';
-import AuthContext from './store/AuthContext';
+import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import classes from './AuthForm.module.css';
 import { useNavigate} from 'react-router-dom';
 
-const AuthForm = () => {
+const AuthForm = (props) => {
   const navigate=useNavigate();
-  const context=useContext(AuthContext);
+  const token = useSelector(state => state.token);
+
   const[action,setAction]=useState(true);
   const emailRef=useRef();
   const passwordRef=useRef();
@@ -38,6 +39,7 @@ fetch(url,{
     'Content-Type':'application/json'
   }
 }).then((res)=>{
+ 
   if(res.ok){
       
    
@@ -53,8 +55,7 @@ return res.json();
   }
 })
 .then((data)=>{
- 
-  context.login(data.idToken);
+  props.onLogin(data.idToken);
   navigate("/confirmEmail")
   console.log("succes");
 })
@@ -67,7 +68,7 @@ try{
       
         body:JSON.stringify({
           requestType:"VERIFY_EMAIL",
-            idToken:context.token,
+            idToken:token,
             }),
             
             headers:{
@@ -85,11 +86,7 @@ try{
           })
         }
       })
-      .then((data)=>{
-       
-        
-        console.log("succes");
-      })
+      
     }
         catch (error) {
           console.error('Error updating account:', error);
@@ -101,7 +98,7 @@ try{
     <section className={classes.auth}>
       <h1>{!action?"Sign Up":"Login"}</h1>
       <div>
-      <form onSubmit={submitHandler}>
+      <div>
       
         <div className={classes.control}>
          
@@ -131,14 +128,14 @@ try{
         <a href='/PasswordReset'>Forgot password?</a>
        </div>
        
-        <button  id='log'>{!action?'Sign Up':'Login'}</button>
+        <button  id='log' onClick={submitHandler}>{!action?'Sign Up':'Login'}</button>
         <div className={classes.actions} onClick={signUpHandle}>
           <button type='button' className={classes.toggle} >
           {!action? 'Have an account?Login':"Don't have an account?Sign Up"}
           </button>
        </div>
        
-      </form>
+      </div>
       </div>
       
     </section>

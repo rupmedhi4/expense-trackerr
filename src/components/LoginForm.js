@@ -1,10 +1,10 @@
-import React, { useContext,useRef } from 'react'
+import React, { useRef } from 'react'
 import classes from './Login.module.css';
-import AuthContext from './store/AuthContext';
+import { useSelector } from 'react-redux';
 
 import { useNavigate} from 'react-router-dom';
-export default function LoginForm() {
-    const context=useContext(AuthContext);
+export default function LoginForm(props) {
+  const token = useSelector(state => state.token);
     const navigate=useNavigate();
     const emailRef=useRef();
   const passwordRef=useRef();
@@ -43,7 +43,7 @@ export default function LoginForm() {
       })
       .then((data)=>{
        
-        context.login(data.idToken);
+        props.onLogin(data.idToken);
         navigate("/NavigateProfile")
         console.log("succes");
       })
@@ -56,7 +56,7 @@ export default function LoginForm() {
             
               body:JSON.stringify({
                 requestType:"VERIFY_EMAIL",
-                  idToken:context.token,
+                  idToken:token,
                   }),
                   
                   headers:{
@@ -70,15 +70,12 @@ export default function LoginForm() {
               }else{
                 return resVerify.json().then((data)=>{
                   
-                  let errorMessage='Not Verify!';
-                  
-                  
-                 throw new Error(errorMessage);
+                 console.log('not verify');
                 })
               }
             })
             .then((data)=>{
-             
+            
               
               console.log("succes");
             })

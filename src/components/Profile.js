@@ -1,17 +1,9 @@
-import React,{useContext, useRef,useEffect, useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import './Profile.css';
 import axios from 'axios';
-import { FaGithub } from "react-icons/fa6";
-import {FiGlobe} from "react-icons/fi";
-import AuthContext from './store/AuthContext';
-import { Link } from 'react-router-dom';
 
-
-export default function Profile() {
- 
-  const context=useContext(AuthContext);
-    const nameRef=useRef();
-     const imageRef=useRef();
+export default function Profile(props) {
+ const[price,setPrice]=useState(0);
  
   const[data,setData]=useState({
     date:'',
@@ -72,75 +64,21 @@ function handle(e){
         });
     },[])
      
+    const handlePrice = ()=>{
+      let ans = 0;
+      listData.map((item)=>(
+          ans += parseInt(item.amount )
+      ))
+      setPrice(ans);
+  }
   
+  useEffect(()=>{
+    handlePrice();
+})
      function logOutHandler(){
-      context.logout();
+      props.onLogout();
      }
-    async function submitHandler(event){
-        event.preventDefault();
-        if(nameRef.current.value==="" ||imageRef.current.value===""){
-  alert('Enter full details');
-        }
-     const res= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
-        method:'POST',
-      
-        body:JSON.stringify({
-          displayName:nameRef.current.value,
-          photoUrl:imageRef.current.value,
-            idToken:context.token,
-            returnSecureToken:true}),
-            
-            headers:{
-                'Content-Type':'application/json'
-              }
-      })
-        if(res.ok){
-    alert('profile updated sucessfully')
-    console.log(res.json());
-    nameRef.current.value = "";
-    imageRef.current.value = "";
-        }else{
-          
-      alert('failed')
-            
-        }  
-        
-    }
-    useEffect(() => {
-      const updateAccount = async () => {
-        try {
-          const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM', {
-            method: 'POST',
-            body: JSON.stringify({
-              idToken: context.token,
-            }),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
-  
-          if (response.ok) {
-            const responseData = await response.json();
-            const users = responseData.users;
-       
-            if (users && users.length > 0 ) {
-              const [{ displayName, photoUrl }] = users;
-              nameRef.current.value = displayName;
-              imageRef.current.value = photoUrl;
-            }
-          } else {
-           console.log('Response not okay');
-          }
-        } catch (error) {
-          console.error('Error updating account:', error);
-        }
-      }
-  
-      if (context.token) {
-        updateAccount();
-      }
-    }, [context.token]);
-
+    
     const remove=(id)=>{
       fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense/${id}.json`, {
         method: "DELETE",
@@ -153,32 +91,19 @@ function handle(e){
   return (
     <div>
       <div className='profile'>
-        <h1>Winners Never Quite,Quitters Never Win.</h1>
-         <div className='profileStatus'>
-         Your profile is <span className='percent'>64%</span> completed. A complete profile has higher chances of landing a job.<a href='#' >complete now</a>
-        </div>
-        
+        <h1>Day To Day Expense</h1>
+        <a href='/'><button className='logout' onClick={logOutHandler} >Logout</button></a>
       </div>
-      <a href='/'><button className='logout' onClick={logOutHandler} >Logout</button></a>
+    <div>
+   
+    </div>
+      <div className='total'>
+          <span><h4>Total Expense:</h4></span>
+            <span><h4>Rs.{price}</h4></span>
+        </div>
+      
       <hr></hr>
      
-    <div className='details' >
-      
-       <form className='form' onSubmit={submitHandler}>
-       <div className='contact'>
-       <h1>Contact Details</h1>
-      <button className='cancel'>Cancel</button>
-       </div>
-       <div>
-          
-        <label htmlFor='name'><span><FaGithub/></span>Name:</label>
-        <input type='text' name='name' className='input' ref={nameRef}></input>
-        <label htmlFor='photo'><span><FiGlobe/></span>Profile Photo URL:</label>
-        <input type='text' name='img' className='input' ref={imageRef}></input>
-        </div>
-        <button className='btn' >Update</button>
-        </form>
-        </div>
         <div id="form" >
               <div className='new-expense__controls'>
                    <div className='new-expense__control'>
@@ -214,7 +139,7 @@ function handle(e){
                 <div className='transaction'>
                 
               <table>
-                <thead>
+              <thead>
                 <tr className='heading'>
                   <th><h2>Date</h2></th>
                   <th><h2>Category</h2></th>
@@ -223,20 +148,21 @@ function handle(e){
                   </tr>
                 </thead>
                 <tbody>
-                {listData.map((t) => (
+                {listData.map((t,i) => (
               t && t.date ? (
-                <tr key={t.id}>
-                  <td><h3>{t.date}</h3></td>
-                  <td>{t.category}</td>
-                  <td>{t.description}</td>
-                  <td>{t.amount}</td>
-                  <td><Link to={`/update/${t.id}`} className='edit'>Edit</Link></td>
+                <tr key={i}>
+                  <td><h3 className='date'>{t.date}</h3></td>
+                  <td><h2>{t.category}</h2></td>
+                  <td><p>{t.description}</p></td>
+                  <td><p>{t.amount}</p></td>
+                  <td><button className='edit'><a href={`/update/${t.id}`} className='aedit'>Edit</a></button></td>
                   <td><button className='delete' onClick={() => remove(t.id)}>Delete</button></td>
                 </tr>
               ) : null
             ))}
                 </tbody>
               </table>
+              
               </div>
              </div>
              )

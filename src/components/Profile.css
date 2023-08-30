@@ -1,6 +1,6 @@
 .profile{
-    padding: 20px;
-display: inline-flex;
+  display:inline-flex;  
+padding: 10px;
 }
 hr{
 
@@ -10,7 +10,7 @@ hr{
    
     display: block;
     height: 40px;
-    width: 30%;
+    width: 90%;
     background-color: rgba(255,255,255,0.07);
     border-radius: 10px;
     padding: 0 10px;
@@ -19,15 +19,7 @@ hr{
     font-weight: 300;
     margin-bottom: 20px;
 }
-.profileStatus{
-    margin-left: 32rem;
-   
-    border: 2px solid rgb(240, 233, 233);
-    background-color: rgb(244, 212, 213);
-    border-radius: 10px;
-    height:40px;
-    padding: 5px;
-}
+
 a{
     text-decoration: none;
     color: blue;
@@ -39,12 +31,7 @@ a{
    margin-left: 500px;
    
 }
-.form{
-    background-color: rgb(228, 220, 247);
-   width: 40rem;
-   padding: 1rem;
-   border-radius: 10px;
-}
+
 
 span{
     margin: 5px;
@@ -58,22 +45,22 @@ span{
     margin-right: 80rem;
 }
 .cancel{
-    border: 2px solid red;
+   
     border-radius: 5px;
-    margin-left: 300px;
+    margin-left: 250px;
    background-color: white;
-   color: red;
+ 
    width: 80px;
    
 }
 .logout{
     border: 2px solid rgb(21, 21, 21);
     border-radius: 5px;
-   justify-content: end;
-   margin-left: 88rem;
-   background-color:  #573b8a;
+  margin-left: 50rem;
+   
+   background-color:  #eb7676;
    color: white;
-   width: 80px;
+   width: 100px;
 }
 .contact{
     display: inline-flex;
@@ -89,16 +76,11 @@ h1{
   margin-top: 20px;
     width: 80rem;
     text-align: left;
-    background-color:white;
-    padding: 1rem;
+   padding: 1rem;
     margin-left: 90px;
-   
-    
-   
     border-radius: 12px;
-    
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-  }
+    }
+  
   
   .new-expense__control label {
     font-weight: bold;
@@ -120,11 +102,11 @@ h1{
     text-align: right;
   }
   .new-expense__control .data {
-    
+    background: #573b8a;
     
     border: 1px solid #40005d;
-    background-color: #40005d;
-    color: white;
+    
+    color: rgb(253, 252, 252);
     font: inherit;
     padding: 0.5rem;
     border-radius: 6px;
@@ -133,6 +115,18 @@ h1{
     max-width: 100%;
    margin-left: 30rem;
    margin-top: 40px;
+  }
+  .date{
+    display: flex;
+    flex-direction: column;
+    width: 5.5rem;
+    height: 5.5rem;
+    border: 1px solid #ececec;
+    background-color: #8173ce;
+    color: white;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
   }
   body{
     background-color:rgb(245, 241, 250);
@@ -153,11 +147,14 @@ h1{
     
   }
    .transaction th{
-    padding-top: 5px;
-    padding-bottom: 5px;
     text-align: right;
-   background-color:#40005d; ;
+   background-color:#4646a198;
     color: white;
+   
+  }
+  .transaction table{
+    background-color: #f2f2f7;
+    margin-left: 30px;
   }
   
   .transaction th,.transaction td{
@@ -165,13 +162,12 @@ h1{
     padding-right: 50px;
     justify-content: center;
   }
-  .heading{
-    border: 2px solid black;
-  }
+  
   .edit{
     border: 2px solid black;
     border-radius: 5px;
     margin-left: 50px;
+    color: white;
     
   }
   .delete{
@@ -179,3 +175,16 @@ h1{
     border-radius: 5px;
     margin-left: 20px;
   }
+  .aedit{
+    color: white;
+  }
+  .total{
+    display:inline-flex;
+    margin-left: 75rem;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+   
+  
+  }
+ 

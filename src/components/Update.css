@@ -4,10 +4,9 @@
      margin-top: 20px;
        width: 80rem;
        text-align: left;
-       background-color:white;
        padding: 1rem;
        margin-left: 90px;
-      
+      background-color: rgb(128, 128, 223);
        
       
        border-radius: 12px;
@@ -34,18 +33,4 @@
      .new-expense__actions {
        text-align: right;
      }
-     .new-expense__control .data {
-       
-       
-       border: 1px solid #40005d;
-       background-color: #40005d;
-       color: white;
-       font: inherit;
-       padding: 0.5rem;
-       border-radius: 6px;
-       border: 1px solid #ccc;
-       width: 10rem;
-       max-width: 100%;
-      margin-left: 30rem;
-      margin-top: 40px;
-     }
+     

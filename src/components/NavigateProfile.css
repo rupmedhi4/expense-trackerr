@@ -2,25 +2,42 @@
    
 justify-content: center;
 text-align: center;
+font-size: x-large;
 }
 hr{
 
     width: 100%;
+}
+.form{
+    background-color: rgb(228, 220, 247);
+   width: 30rem;
+   padding: 1rem;
+   border-radius: 10px;
 }
 .incomplete{
     margin-left: 10rem;
     border: 1px solid rgb(240, 233, 233);
     background-color: rgb(244, 212, 213);
     border-radius: 10px;
-    height: 30px;
+    height: 50px;
     width:fit-content;
     padding: 4px;
     margin-top: 20px;
+    font-size:large;
 }
 a{
     text-decoration: none;
 }
 .welcome{
-    margin-left: 32rem;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    margin-left: 20rem;
 }
+.arrow{
+    border: 2px solid rgb(11, 11, 11);
+    border-radius: 5px;
+    margin-left: 250px;
+   background-color: white;
+   color: rgb(79, 17, 167);
+   width: 80px;
+   margin-left: 80rem;
+}
+   
