@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import PasswordReset from "./components/PasswordReset";
 import Update from "./components/Update";
 import LoginForm from "./components/LoginForm";
+import Header from "./components/Header";
 function App() {
   const dispatch = useDispatch(); // Get the dispatch function
  
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <div>
+    <Header onLogout={handleLogout}></Header>
       <Routes>
  <Route path="/" element={<AuthForm onLogin={handleLogin}/>}></Route>
  <Route path="/NavigateProfile" element={<NavigateProfile/>}></Route>

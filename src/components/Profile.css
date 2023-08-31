@@ -1,7 +1,4 @@
-.profile{
-  display:inline-flex;  
-padding: 10px;
-}
+
 hr{
 
     width: 100%;
@@ -73,10 +70,10 @@ h1{
 .new-expense__controls {
  display: inline-flex;
     flex-wrap: wrap;
-  margin-top: 20px;
+
     width: 80rem;
     text-align: left;
-   padding: 1rem;
+ 
     margin-left: 90px;
     border-radius: 12px;
     }
@@ -128,16 +125,14 @@ h1{
     align-items: center;
     justify-content: center;
   }
-  body{
-    background-color:rgb(245, 241, 250);
-  }
+  
   .transaction{
     display: inline-flex;
     flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 5px;
     width: 80rem;
     text-align: center;
-    background-color:white;
+    background-color:rgb(228, 222, 245);
     padding: 1rem;
     margin-left: 90px;
     font-family: Arial, Helvetica, sans-serif;
@@ -150,12 +145,14 @@ h1{
     text-align: right;
    background-color:#4646a198;
     color: white;
+  
    
   }
   .transaction table{
     background-color: #f2f2f7;
-    margin-left: 30px;
+    
   }
+  
   
   .transaction th,.transaction td{
     padding-left: 50px;
@@ -180,7 +177,7 @@ h1{
   }
   .total{
     display:inline-flex;
-    margin-left: 75rem;
+    margin-left: 70rem;
     background-color: #ccc;
     border: 1px solid #ccc;
     border-radius: 20px;

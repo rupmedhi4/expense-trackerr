@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import './Profile.css';
 import axios from 'axios';
-
+import { CSVLink } from 'react-csv';
 export default function Profile(props) {
  const[price,setPrice]=useState(0);
  
@@ -70,14 +70,16 @@ function handle(e){
           ans += parseInt(item.amount )
       ))
       setPrice(ans);
+      if(ans>10000){
+        alert("Buy premium")
+       
+      }
   }
   
   useEffect(()=>{
     handlePrice();
 })
-     function logOutHandler(){
-      props.onLogout();
-     }
+    
     
     const remove=(id)=>{
       fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense/${id}.json`, {
@@ -86,22 +88,19 @@ function handle(e){
       const arr = listData.filter((item)=>item.id !== id);
       setListData(arr);
     }
-  
+
+    
    
   return (
     <div>
-      <div className='profile'>
+      
         <h1>Day To Day Expense</h1>
-        <a href='/'><button className='logout' onClick={logOutHandler} >Logout</button></a>
-      </div>
-    <div>
-   
-    </div>
+       
       <div className='total'>
           <span><h4>Total Expense:</h4></span>
             <span><h4>Rs.{price}</h4></span>
         </div>
-      
+        <CSVLink data={listData}>download</CSVLink>
       <hr></hr>
      
         <div id="form" >

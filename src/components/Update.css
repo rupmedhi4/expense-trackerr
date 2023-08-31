@@ -1,7 +1,7 @@
 .new-expense__controls {
     display: inline-flex;
        flex-wrap: wrap;
-     margin-top: 20px;
+     margin-top: 5px;
        width: 80rem;
        text-align: left;
        padding: 1rem;

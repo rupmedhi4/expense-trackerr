@@ -90,7 +90,7 @@ alert('Enter full details');
        <form className='form' onSubmit={submitHandler}>
        <div className='contact'>
        <h1>Details:</h1>
-      <button className='cancel'>Cancel</button>
+      
        </div>
        <div>
           
