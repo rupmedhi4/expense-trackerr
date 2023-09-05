@@ -10,7 +10,7 @@ export default function PasswordReset() {
             alert('Enter email')
         }
     try{
-        const resetPassword= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
+        const resetPassword= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI',{
               method:'POST',
             
               body:JSON.stringify({
@@ -23,7 +23,7 @@ export default function PasswordReset() {
                     }
             })
               const data=resetPassword.json();
-            localStorage.setItem('email',email)
+          
 
             } 
               catch (error) {

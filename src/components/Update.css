@@ -13,7 +13,9 @@
        
        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
      }
-     
+     .head{
+      display: inline-flex;
+     }
      .new-expense__control label {
        font-weight: bold;
        margin-left: 20px;

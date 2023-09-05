@@ -28,11 +28,30 @@ a{
    margin-left: 500px;
    
 }
-
-
+.logout{
+  border: 2px solid rgb(21, 21, 21);
+  border-radius: 5px;
+ justify-content: end;
+margin-left: 60rem;
+ background-color:  #eb1f1f;
+ color: white;
+ width: 100px;
+}
+.premium{
+  margin-left: 5px;
+  width: 90px;
+  border: 2px solid rgb(21, 21, 21);
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.pro{
+  display: inline-flex;
+ margin-left: 10px; 
+}
 span{
     margin: 5px;
 }
+
 .btn{
     border: 2px solid wheat;
     border-radius: 5px;
@@ -50,15 +69,7 @@ span{
    width: 80px;
    
 }
-.logout{
-    border: 2px solid rgb(21, 21, 21);
-    border-radius: 5px;
-  margin-left: 50rem;
-   
-   background-color:  #eb7676;
-   color: white;
-   width: 100px;
-}
+
 .contact{
     display: inline-flex;
 
@@ -177,11 +188,14 @@ h1{
   }
   .total{
     display:inline-flex;
-    margin-left: 70rem;
+    margin-left: 55rem;
     background-color: #ccc;
     border: 1px solid #ccc;
     border-radius: 20px;
    
-  
+  }
+  .buy{
+    color: #eb1f1f;
+    margin-left: 87rem;
   }
  

@@ -2,6 +2,14 @@ import React, { useEffect,useState } from 'react'
 import './Update.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+
+const userEmail = localStorage.getItem('email');
+
+if (userEmail) {
+  var mail = userEmail.replace('@', '').replace('.', '');
+  } else {
+  console.error('User email is missing in localStorage');
+ }
 export default function Update() {
   const navigate=useNavigate();
     const { id } = useParams();
@@ -20,7 +28,7 @@ export default function Update() {
   
     useEffect(() => {
       axios
-        .get(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense/${id}.json`)
+        .get(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/${mail}/${id}.json`)
         .then((response) => {
             
           console.log(response);
@@ -35,7 +43,7 @@ export default function Update() {
     function submitHandler(e){
      
         e.preventDefault();
-        fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense/${id}.json`, {
+        fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/${mail}/${id}.json`, {
           method: 'PUT',
           body: JSON.stringify(expenseData),
           headers: {
@@ -43,7 +51,7 @@ export default function Update() {
           }
         })
         .then(response => {
-          navigate('/profile');
+          navigate('/Expense');
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }

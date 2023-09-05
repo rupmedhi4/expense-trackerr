@@ -15,7 +15,7 @@ export default function NavigateProfile() {
       if(nameRef.current.value==="" ||imageRef.current.value===""){
 alert('Enter full details');
       }
-   const res= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
+   const res= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI',{
       method:'POST',
     
       body:JSON.stringify({
@@ -43,7 +43,7 @@ alert('Enter full details');
   useEffect(() => {
     const updateAccount = async () => {
       try {
-        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM', {
+        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI', {
           method: 'POST',
           body: JSON.stringify({
             idToken: token,
@@ -56,7 +56,7 @@ alert('Enter full details');
         if (response.ok) {
           const responseData = await response.json();
           const users = responseData.users;
-     
+     console.log(response);
           if (users && users.length > 0 ) {
             const [{ displayName, photoUrl }] = users;
             nameRef.current.value = displayName;
@@ -79,9 +79,7 @@ alert('Enter full details');
     <div>
     <div className='profile'>
       <h1 className='welcome'>Welcome To Expence Tracker!!!</h1>
-     <div className='incomplete'>
-     Your profile is <span className='percent'>64%</span> completed. A complete profile has higher chances of landing a job.<a href='#' >complete now</a>
-     </div>
+    
      
     </div>
     <hr></hr>
@@ -102,7 +100,7 @@ alert('Enter full details');
         <button className='btn' >Update</button>
         </form>
         </div>
-        <button className='arrow'><a href='/profile'><span><TbArrowBigRightLineFilled></TbArrowBigRightLineFilled></span></a></button>
+        <button className='arrow'><a href='/expense'><span><TbArrowBigRightLineFilled></TbArrowBigRightLineFilled></span></a></button>
     </div>
   )
 }

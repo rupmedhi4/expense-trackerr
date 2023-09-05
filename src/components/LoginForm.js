@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef,useEffect } from 'react'
 import classes from './Login.module.css';
 import { useSelector } from 'react-redux';
 
@@ -14,7 +14,7 @@ export default function LoginForm(props) {
     const enterdEmail=emailRef.current.value;
     const enterdPassword=passwordRef.current.value;
     
-     let url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM'
+     let url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI'
     
     fetch(url,{
         method:'POST',
@@ -44,48 +44,54 @@ export default function LoginForm(props) {
       .then((data)=>{
        
         props.onLogin(data.idToken);
-        navigate("/NavigateProfile")
+        
         console.log("succes");
       })
       .catch((err)=>{
         alert(err.message);
       })
-      try{
-        fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQYXLrWSQR8lxbt1sc-ye5bGOTDsYKzQM',{
-              method:'POST',
-            
-              body:JSON.stringify({
-                requestType:"VERIFY_EMAIL",
-                  idToken:token,
-                  }),
-                  
-                  headers:{
-                      'Content-Type':'application/json'
-                    }
-            }).then((resVerify)=>{
-              if(resVerify.ok){
-                  
-               
-          return resVerify.json();
-              }else{
-                return resVerify.json().then((data)=>{
-                  
-                 console.log('not verify');
-                })
-              }
-            })
-            .then((data)=>{
-            
-              
-              console.log("succes");
-            })
-          }
-              catch (error) {
-                console.error('Error updating account:', error);
       
-              }
        
   }
+  useEffect(() => {
+    const updateAccount = async () => {
+      try {
+        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI', {
+          method: 'POST',
+          body: JSON.stringify({
+            idToken: token,
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          const users = responseData.users[0];
+            
+     
+     if(users.emailVerified===false){
+      alert('Please verify your email to login')
+     }
+     else if(users.emailVerified===true){
+      navigate('/NavigateProfile')
+     }
+          
+        } else {
+         console.log('Response not okay');
+        }
+      } catch (error) {
+        console.error('Error updating account:', error);
+      }
+    }
+
+    if (token) {
+      updateAccount();
+    
+    }
+  }, [token,navigate]);
+
    
   return (
     <div>

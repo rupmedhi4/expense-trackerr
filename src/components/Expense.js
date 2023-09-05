@@ -1,15 +1,22 @@
 import React,{useEffect, useState} from 'react'
-import './Profile.css';
+import './Expense.css';
 import axios from 'axios';
 import { CSVLink } from 'react-csv';
-export default function Profile(props) {
+
+const userEmail = localStorage.getItem('email');
+
+if (userEmail) {
+  var mail = userEmail.replace('@', '').replace('.', '');
+  } else {
+  console.error('User email is missing in localStorage');
+  }
+export default function Expense(props) {
  const[price,setPrice]=useState(0);
- 
-  const[data,setData]=useState({
+ const[data,setData]=useState({
     date:'',
     category:'',
    description:'',
-   amount:''
+   amount:0
 
 });
 
@@ -18,7 +25,7 @@ export default function Profile(props) {
   let {date,category,description,amount}=data;
   function listHandler(e){
     e.preventDefault();
-    fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense.json`, {
+    fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/${mail}.json`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -35,9 +42,9 @@ export default function Profile(props) {
       console.error('Fetch error:', error);
     });
    
-    
         setListData([...listData, {date,category,description,amount}]);
       setData({date:'',category:'',description:'',amount:''});
+
         }
 
 function handle(e){
@@ -46,10 +53,12 @@ function handle(e){
   setData({...data,[name]:value})
   }
   
-  
+  function logoutHandler(){
+   props.onLogout();
+  }
       
   useEffect(() => {
-    axios.get(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense.json`)
+    axios.get(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/${mail}.json`)
     .then((response) => {
           
           const post=[];
@@ -66,14 +75,15 @@ function handle(e){
      
     const handlePrice = ()=>{
       let ans = 0;
-      listData.map((item)=>(
-          ans += parseInt(item.amount )
-      ))
-      setPrice(ans);
-      if(ans>10000){
-        alert("Buy premium")
-       
-      }
+  listData.forEach((item) => {
+    const itemAmount = parseInt(item.amount);
+    if (!isNaN(itemAmount)) {
+      ans += itemAmount;
+    }
+  });
+  setPrice(ans)
+     if(ans>10000){
+      } 
   }
   
   useEffect(()=>{
@@ -82,25 +92,34 @@ function handle(e){
     
     
     const remove=(id)=>{
-      fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expense/${id}.json`, {
+      fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/${mail}/${id}.json`, {
         method: "DELETE",
       })
       const arr = listData.filter((item)=>item.id !== id);
       setListData(arr);
     }
 
-    
+   
    
   return (
     <div>
+      <div className='head'>
+       <h1>Day To Day Expense</h1>
       
-        <h1>Day To Day Expense</h1>
-       
-      <div className='total'>
-          <span><h4>Total Expense:</h4></span>
-            <span><h4>Rs.{price}</h4></span>
+        <a href='/'><button className='logout' onClick={logoutHandler} >LOGOUT</button></a>
+        
         </div>
-        <CSVLink data={listData}>download</CSVLink>
+       
+       <div className='pro'>
+      <h5> Your profile is not complete. <a href='/NavigateProfile' >complete now</a></h5>
+     
+      <div className='total'>
+      
+          <span><h4>Total Expense:</h4></span>
+            <span><h4>{price}</h4></span>
+        </div>
+        </div>
+       <CSVLink data={listData}>download</CSVLink>
       <hr></hr>
      
         <div id="form" >
@@ -109,8 +128,9 @@ function handle(e){
                    <label>Category: </label>
                   <select type='select' value={data.category} name='category' onChange={handle}>
                   <option value="select">Select</option>
-                   <option value="Bills and EMI's">Bills and EMI's</option>
+                   <option value="Bills & EMI's">Bills & EMI's</option>
                     <option value="Sports">Sports</option>
+                    <option value="electronics">Electronics</option>
                      <option value="Travel">Travel</option>
                     <option value="Hospital">Hospital</option>
                     <option value="Groceries">Groceries</option>
