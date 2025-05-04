@@ -1,48 +1,31 @@
 import React from "react";
-import AuthForm from "./components/AuthForm";
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"; 
-import { login,logout} from "./components/store/authSlice";
-import ConfirmEmail from "./components/ConfirmEmail";
-import NavigateProfile from "./components/NavigateProfile";
-import Expense from "./components/Expense";
-import PasswordReset from "./components/PasswordReset";
-import Update from "./components/Update";
-import LoginForm from "./components/LoginForm";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import PasswordReset from "./components/resetPassword/PasswordReset";
+import SignupForm from "./components/auth-components/SignupForm";
+import LoginForm from "./components/auth-components/LoginForm";
+import UpdateDetails from "./components/updateDetails/UpdateDetails";
+import Expenses from './components/expenseForm/Expenses';
+import ConfirmMail from "./components/confirmMail/ConfirmMail";
+import { useSelector } from "react-redux";
 
 
 function App() {
-  const dispatch = useDispatch(); 
-const select=useSelector(state=>state.isLogin)
-const navigate=useNavigate();
-  const handleLogin = (token) => {
-    
-    dispatch(login(token)); 
- 
-    localStorage.setItem("token", token);
-  };
 
-  const handleLogout = () => {
-
-    dispatch(logout()); 
-    navigate('/')
-    localStorage.removeItem("token");
-  };
+  const isLogin = useSelector(state => state.auth.isLogin);
+  
 
   return (
-    <div>
-   
-      <Routes>
- <Route path="/" element={<AuthForm onLogin={handleLogin}/>}></Route>
- <Route path="/NavigateProfile" element={<NavigateProfile/>}></Route>
- <Route path="/expense" element={<Expense onLogout={handleLogout}/>}></Route>
-{select &&<Route path="/confirmEmail" element={<ConfirmEmail/>}></Route>}
-{select &&<Route path="/LoginForm" element={<LoginForm onLogin={handleLogin}/>}></Route>}
-<Route path="/update/:id" element={<Update/>}></Route>
-<Route path="/PasswordReset" element={<PasswordReset/>}></Route>
-  <Route path="*" element={<Navigate to="/" />} />
-</Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<LoginForm />} />
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/signup" element={<SignupForm />} />
+      {isLogin && 
+            <Route path="/confirmEmail" element={<ConfirmMail />}
+      />}
+      <Route path="/expense" element={<Expenses />} />
+      <Route path="/update-details" element={<UpdateDetails />} />
+      <Route path="/password-reset" element={<PasswordReset />} />
+    </Routes>
   );
 }
 

@@ -1,0 +1,156 @@
+/* General container for auth form */
+.auth {
+  margin: 3rem auto;
+  width: 90%; /* Adjust width to be responsive */
+  max-width: 20rem;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  text-align: center;
+  display: block;
+  margin-top: 120px;
+}
+
+/* Heading styling */
+.auth h1 {
+  color: black;
+  font-size: 2.3em;
+  justify-content: center;
+  display: flex;
+  margin: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+
+/* Input fields styling */
+.control input {
+  display: block;
+  height: 50px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 0 15px;
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 400;
+  border: 1px solid #ddd;
+  outline: none;
+  color: #333;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+  transition: all 0.3s ease;
+}
+
+.control input:hover {
+  background-color: rgba(240, 240, 240, 0.6);
+  border-color: #bbb;
+}
+
+.control input:focus {
+  background-color: #fff;
+  border-color: #6a0dad;
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.2);
+}
+
+
+.control input:hover {
+  background-color: #c7c1c1;
+}
+
+/* Actions container for buttons and links */
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+}
+
+/* Submit button styling */
+.actions button {
+  margin: 1rem 0 1rem 0;
+  cursor: pointer;
+  font: inherit;
+  color: white;
+  background-color: #e01da6;
+  border: 1px solid #e01da6;
+  border-radius: 50px;
+  padding: 0.5rem 2.5rem;
+  width: 100%;
+}
+
+/* Hover effect for submit button */
+.actions button:hover {
+  background-color: #241a90;
+  border-color: #873abb;
+}
+
+
+
+.toggle-signup {
+  color: #e04de0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  transition: text-decoration 0.3s ease;
+}
+
+.toggle-signup:hover {
+  text-decoration: underline;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth {
+    width: 80%; /* Adjust width for tablets */
+    margin-top: 80px;
+  }
+
+  .auth h1 {
+    font-size: 2em;
+  }
+
+  .control input {
+    font-size: 12px; 
+  }
+
+  .actions button {
+    padding: 0.5rem 2rem;
+  }
+
+  .toggle-signup {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth {
+    width: 90%; /* Adjust width for small screens */
+    margin-top: 60px;
+    padding: 1rem;
+  }
+
+  .auth h1 {
+    font-size: 1.8em;
+  }
+
+  .control input {
+    font-size: 14px;
+  }
+
+  .actions button {
+    padding: 0.5rem 1.5rem;
+  }
+
+  .toggle-signup {
+    font-size: 0.75rem;
+  }
+}

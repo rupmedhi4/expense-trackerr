@@ -1,0 +1,161 @@
+/* Expense Header Styling */
+.expense-header {
+  background-color: #f9f9ff;
+  border-bottom: 2px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Header layout */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Styling for the h1, aligned to the left */
+.header-top h1 {
+  color: #333;
+  font-size: 24px;
+ 
+  flex: 1;
+  text-align: left; /* Align the text to the left */
+ 
+}
+
+/* Logout button styling */
+.logout-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  min-width: 120px;
+}
+
+.logout-btn:hover {
+  background-color: #e60000;
+}
+
+/* Profile warning styling */
+.profile-warning {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.profile-warning a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.profile-warning a:hover {
+  text-decoration: underline;
+}
+
+/* Expense summary styling */
+.expense-summary {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.expense-summary h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #444;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.highlight {
+  color: #008000;
+  font-weight: bold;
+}
+
+/* CSV download link styling */
+.csv-download {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.csv-download:hover {
+  background-color: #0056b3;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-top h1 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .logout-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .expense-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .expense-summary h4 {
+    font-size: 16px;
+  }
+
+  .csv-download {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .expense-header {
+    padding: 15px;
+  }
+
+  .header-top h1 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .logout-btn {
+    padding: 12px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .csv-download {
+    padding: 12px;
+    font-size: 14px;
+    width: 100%;
+  }
+}

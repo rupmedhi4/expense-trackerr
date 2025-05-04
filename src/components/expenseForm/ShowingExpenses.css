@@ -1,0 +1,101 @@
+/* Main container for the expense table */
+.expense-table-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #f9f9ff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+/* Table styling */
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  color: #333;
+}
+
+.expense-table th,
+.expense-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Table header styling */
+.expense-table th {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+/* Table row styling */
+.expense-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.expense-table tr:hover {
+  background-color: #e0f7fa;
+  cursor: pointer;
+}
+
+/* Styling for the edit and delete buttons */
+.edit-btn,
+.delete-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-btn {
+  background-color: #ffa500;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #ff8c00;
+}
+
+.delete-btn {
+  background-color: #ff4d4f;
+  color: white;
+  margin-left: 8px;
+}
+
+.delete-btn:hover {
+  background-color: #e60000;
+}
+
+/* No data message styling */
+.no-data {
+  font-size: 18px;
+  color: #777;
+  text-align: center;
+  padding: 20px 0;
+  font-weight: 500;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .expense-table-container {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .expense-table th,
+  .expense-table td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
