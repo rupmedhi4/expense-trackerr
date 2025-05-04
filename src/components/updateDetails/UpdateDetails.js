@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { FaGithub } from "react-icons/fa6";
 import { FiGlobe } from "react-icons/fi";
 import { TbArrowBigRightLineFilled } from "react-icons/tb";
-
-// Import the CSS file
 import './UpdateDetails.css';
 
 export default function UpdateDetails() {
@@ -20,24 +18,23 @@ export default function UpdateDetails() {
         if (nameRef.current.value === "" || imageRef.current.value === "") {
             alert('Enter full details');
         }
-console.log(token);
+        console.log(token);
 
         const res = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              idToken: token,
-              displayName: nameRef.current.value,
-              photoUrl: imageRef.current.value,
-              returnSecureToken: true
+                idToken: token,
+                displayName: nameRef.current.value,
+                photoUrl: imageRef.current.value,
+                returnSecureToken: true
             })
-          });
-          
+        });
+
         if (res.ok) {
             alert('Profile updated successfully');
-            console.log(res.json());
             nameRef.current.value = "";
             imageRef.current.value = "";
             navigate("/expense");
@@ -69,16 +66,18 @@ console.log(token);
                     }
                 } else {
                     console.log('Response not okay');
+                    alert("something went wrong")
                 }
             } catch (error) {
                 console.error('Error updating account:', error);
+                alert("Error updating account")
             }
         }
 
         if (token) {
             updateAccount();
         }
-    }, [token]);
+    }, []);
 
     return (
         <div className="update-details-container">

@@ -1,41 +1,69 @@
-import React, { useRef } from 'react'
-import './PasswordReset.css'
+import React, { useRef, useState } from 'react';
+import './PasswordReset.css';
 
 export default function PasswordReset() {
   const emailRef = useRef();
+  const [loading, setLoading] = useState(false);
 
-async function submitHandler(event) {
+  async function submitHandler(event) {
     event.preventDefault();
     const email = emailRef.current.value;
-    if (emailRef.current.value === "") {
-      alert('Enter email')
+
+    if (!email) {
+      alert('Please enter your email address.');
+      return;
     }
+
+    setLoading(true);
+
     try {
-      const resetPassword = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI', {
-        method: 'POST',
-        body: JSON.stringify({
-          requestType: "PASSWORD_RESET",
-          email: email
-        }),
-        headers: {
-          'Content-Type': 'application/json'
+      const response = await fetch(
+        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            requestType: 'PASSWORD_RESET',
+            email: email,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
-      })
-      const data = resetPassword.json();
-    }
-    catch (error) {
-      console.error('Error updating account:', error);
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Password reset link sent to your email.');
+      } else {
+        alert(data.error.message || 'Something went wrong.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <div className='resetPassword'>
-      <h1>Reset Your Password</h1>
-      <hr></hr>
-      <p>Lost your password? Please enter your email address. You will receive a link to create new password via email.</p>
-      <label htmlFor='email'>Email:</label>
-      <input type='email' id='email' className='input' placeholder='Enter email' ref={emailRef} required />
-      <button className='reset' onClick={submitHandler}>RESET PASSWORD</button>
+    <div className="reset-container">
+      <form className="reset-form" onSubmit={submitHandler}>
+        <h2>🔐 Reset Your Password</h2>
+        <p>
+          Lost your password? Enter your email and we’ll send you a reset link.
+        </p>
+        <input
+          type="email"
+          ref={emailRef}
+          placeholder="Enter your email"
+          className="reset-input"
+          required
+        />
+        <button type="submit" className="reset-button" disabled={loading}>
+          {loading ? 'Sending...' : 'Reset Password'}
+        </button>
+      </form>
     </div>
-  )
+  );
 }

@@ -46,8 +46,6 @@ export const addExpense = createAsyncThunk(
             JSON.stringify(expense),
             { headers: { 'Content-Type': 'application/json' } }
         );
-      
-        
         return { ...expense, id: response.data.name };
     }
 );
@@ -56,7 +54,6 @@ const expenseSlice = createSlice({
     name: 'expenses',
     initialState,
     reducers: {
-
         calculateTotal(state) {
             let total = 0;
             state.listData.forEach(item => {
@@ -64,8 +61,7 @@ const expenseSlice = createSlice({
                 if (!isNaN(amt)) total += amt;
             });
             state.totalExpense = total;
-        }
-        
+        }       
     },
 
     extraReducers: (builder) => {
@@ -78,7 +74,6 @@ const expenseSlice = createSlice({
             })
             .addCase(addExpense.fulfilled, (state, action) => {
                 state.listData.push(action.payload);
-                console.log(state.listData);
             });
     }
 });

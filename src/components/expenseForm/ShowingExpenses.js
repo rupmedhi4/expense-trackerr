@@ -17,7 +17,6 @@ export default function ShowingExpenses({ setData, setIsEdit }) {
   const dispatch = useDispatch();
   const listData = useSelector(state => state.expenses.listData);
   const navigate = useNavigate();
-console.log(listData);
 
   const remove = (id) => {
     dispatch(deleteExpense(id)).then(() => {
@@ -25,25 +24,23 @@ console.log(listData);
     });
   };
 
+  console.log(listData);
+  
   const editHandler = async (id) => {
     try {
-      
-      console.log(id);
-      
       setIsEdit(true);
-      const res = listData.find((item)=>item.id === id)
-      console.log(res);
+      console.log(listData);
       
+      const res = listData.find((item)=>item.id === id)
       if (res) {
         setData({
-          date: res.data.date ,
-          category: res.data.category ,
-          description: res.data.description ,
-          amount: res.data.amount ,
-          id: id
+          date: res.date ,
+          category: res.category ,
+          description: res.description ,
+          amount: res.amount ,
+          id: res.id
         });
       }
-
       
     } catch (error) {
       console.error("Error fetching data:", error);

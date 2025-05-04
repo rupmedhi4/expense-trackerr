@@ -16,11 +16,10 @@ const ExpenseFormHeader = () => {
     dispatch(fetchExpenses()).then(() => {
       dispatch(calculateTotal());
     });
-  }, [dispatch]);
+  }, []);
 
   const handleLogout = () => {
     dispatch(logout());
-    localStorage.removeItem('token');
     navigate('/');
   };
 

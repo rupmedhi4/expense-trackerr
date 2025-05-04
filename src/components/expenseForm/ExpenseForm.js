@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addExpense, calculateTotal } from '../store/expenseSlice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addExpense, calculateTotal, fetchExpenses } from '../store/expenseSlice';
 import ShowingExpenses from './ShowingExpenses';
 import './ExpenseForm.css';
 
 
 
 let userEmail = localStorage.getItem('email');
-
 if (userEmail) {
   userEmail = userEmail.replace('@', '').replace('.', '');
 } else {
@@ -24,48 +23,51 @@ const ExpenseForm = () => {
     description: '',
     amount: ''
   });
-  console.log(data);
-  
   const [isEdit, setIsEdit] = useState(false);
+
+  const listData = useSelector(state => state.expenses.listData);
 
   function handle(e) {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   }
 
-  function listHandler(e) {
+  useEffect(()=>{
+    dispatch(calculateTotal());
+  },[listData])
+
+  async function listHandler(e) {
     e.preventDefault();
-  
-    const { id, ...expenseData } = data;
-  
-    if (isEdit && id) {
-      // Update expense in Firebase
-      fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/${userEmail}/${id}.json`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(expenseData)
-      })
-      .then(res => res.json())
-      .then(() => {
-        dispatch(calculateTotal());
-      })
-      .catch(err => {
-        console.error("Error updating expense:", err);
-      });
-  
-      setIsEdit(false);
-    } else {
-      // Add new expense
-      dispatch(addExpense(data)).then(() => {
-        dispatch(calculateTotal());
-      });
+    try {
+      if (isEdit) {
+        const { id, ...expenseData } = data;
+        const response = await fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/${userEmail}/${id}.json`, {
+          method: 'PUT',
+          body: JSON.stringify(expenseData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to update expense');
+        }
+        dispatch(fetchExpenses());
+        setIsEdit(false);
+        alert("update successfully")
+      } else {
+        dispatch(addExpense(data));
+        alert("expense add successfully")
+      }
+
+
+      setData({ date: '', category: '', description: '', amount: '' });
+
+    } catch (error) {
+      console.error("Error handling expense:", error);
     }
-  
-    setData({ date: '', category: '', description: '', amount: '' });
   }
-  
+
 
   return (
     <>
@@ -127,7 +129,7 @@ const ExpenseForm = () => {
         </div>
       </form>
 
-      <ShowingExpenses  setData={setData} setIsEdit={setIsEdit}  />
+      <ShowingExpenses setData={setData} setIsEdit={setIsEdit} />
     </>
   );
 };
