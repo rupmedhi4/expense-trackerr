@@ -36,7 +36,7 @@ const ExpenseForm = () => {
     dispatch(calculateTotal());
   },[listData])
 
-  async function listHandler(e) {
+  async function addHandler(e) {
     e.preventDefault();
     try {
       if (isEdit) {
@@ -73,7 +73,7 @@ const ExpenseForm = () => {
     <>
       <h1>Expense Tracker</h1>
 
-      <form className='expense-form' onSubmit={listHandler}>
+      <form className='expense-form' onSubmit={addHandler}>
         <div className='form-group'>
           <label>Category</label>
           <select name='category' value={data.category} onChange={handle} required>

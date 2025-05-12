@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteExpense, calculateTotal } from '../store/expenseSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './ShowingExpenses.css'; // Importing the CSS file
+import './ShowingExpenses.css'; 
 
 let userEmail = localStorage.getItem('email');
 
@@ -24,12 +24,10 @@ export default function ShowingExpenses({ setData, setIsEdit }) {
     });
   };
 
-  console.log(listData);
   
   const editHandler = async (id) => {
     try {
       setIsEdit(true);
-      console.log(listData);
       
       const res = listData.find((item)=>item.id === id)
       if (res) {

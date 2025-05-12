@@ -29,19 +29,23 @@ export const loginUser = createAsyncThunk(
     const userInfoUrl = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${apiKey}`;
 
     try {
-      // Sign in
       const res = await fetch(signInUrl, {
         method: 'POST',
-        body: JSON.stringify({ email, password, returnSecureToken: true }),
+        body: JSON.stringify({ 
+          email, 
+          password, 
+          returnSecureToken: true 
+        }),
         headers: { 'Content-Type': 'application/json' },
       });
 
       const data = await res.json();
+      console.log(data);
+      
       if (!res.ok) throw new Error(data.error?.message || 'Login failed!');
 
       const idToken = data.idToken;
 
-      // Check email verification
       const userRes = await fetch(userInfoUrl, {
         method: 'POST',
         body: JSON.stringify({ idToken }),
@@ -67,7 +71,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-//Verification Email 
+
 export const sendVerificationEmail = createAsyncThunk(
   'auth/sendVerificationEmail',
   async (idToken, { rejectWithValue }) => {

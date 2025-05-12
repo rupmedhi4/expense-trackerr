@@ -44,7 +44,11 @@ export const addExpense = createAsyncThunk(
         const response = await axios.post(
             `https://expence-tracker-c3991-default-rtdb.firebaseio.com/${mail}.json`,
             JSON.stringify(expense),
-            { headers: { 'Content-Type': 'application/json' } }
+            { headers: 
+                { 
+                    'Content-Type': 'application/json' 
+                } 
+            }
         );
         return { ...expense, id: response.data.name };
     }

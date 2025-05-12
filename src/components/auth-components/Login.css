@@ -1,7 +1,6 @@
-/* General container for auth form */
 .auth {
   margin: 3rem auto;
-  width: 90%; /* Adjust width to be responsive */
+  width: 90%; 
   max-width: 20rem;
   border-radius: 20px;
   background-color: white;
@@ -12,7 +11,6 @@
   margin-top: 120px;
 }
 
-/* Heading styling */
 .auth h1 {
   color: black;
   font-size: 2.3em;
@@ -24,7 +22,6 @@
   transition: .5s ease-in-out;
 }
 
-/* Input fields styling */
 .control input {
   display: block;
   height: 50px;
@@ -60,7 +57,6 @@
   background-color: #c7c1c1;
 }
 
-/* Actions container for buttons and links */
 .actions {
   margin-top: 1.5rem;
   display: flex;
@@ -69,7 +65,6 @@
   position: relative;
 }
 
-/* Submit button styling */
 .actions button {
   margin: 1rem 0 1rem 0;
   cursor: pointer;
@@ -82,7 +77,6 @@
   width: 100%;
 }
 
-/* Hover effect for submit button */
 .actions button:hover {
   background-color: #241a90;
   border-color: #873abb;
@@ -107,10 +101,9 @@
 }
 
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .auth {
-    width: 80%; /* Adjust width for tablets */
+    width: 80%; 
     margin-top: 80px;
   }
 
@@ -133,7 +126,7 @@
 
 @media (max-width: 480px) {
   .auth {
-    width: 90%; /* Adjust width for small screens */
+    width: 90%; 
     margin-top: 60px;
     padding: 1rem;
   }
