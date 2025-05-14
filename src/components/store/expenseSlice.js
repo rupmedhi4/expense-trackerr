@@ -51,6 +51,7 @@ export const addExpense = createAsyncThunk(
           headers: { 'Content-Type': 'application/json' },
         }
       );
+      console.log(response);
       return { ...expense, id: response.data.name };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -100,6 +101,8 @@ const expenseSlice = createSlice({
       })
       .addCase(addExpense.fulfilled, (state, action) => {
         state.listData.push(action.payload);
+      
+        
       });
   },
 });

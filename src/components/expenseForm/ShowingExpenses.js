@@ -30,6 +30,8 @@ export default function ShowingExpenses({ setData, setIsEdit }) {
       setIsEdit(true);
       
       const res = listData.find((item)=>item.id === id)
+      console.log(res);
+      
       if (res) {
         setData({
           date: res.date ,

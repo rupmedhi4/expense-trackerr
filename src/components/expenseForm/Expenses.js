@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ExpenseFormHeader from './ExpenseFormHeader';
 import ExpenseForm from './ExpenseForm';
 import ShowingExpenses from './ShowingExpenses';

@@ -6,12 +6,7 @@ import './ExpenseForm.css';
 
 
 
-let userEmail = localStorage.getItem('email');
-if (userEmail) {
-  userEmail = userEmail.replace('@', '').replace('.', '');
-} else {
-  console.error('User email is missing in localStorage');
-}
+
 
 
 
@@ -24,23 +19,40 @@ const ExpenseForm = () => {
     amount: ''
   });
   const [isEdit, setIsEdit] = useState(false);
+  const [userEmail, setUserEmail] = useState(null);
 
   const listData = useSelector(state => state.expenses.listData);
+
+
+
 
   function handle(e) {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   }
 
-  useEffect(()=>{
+
+  useEffect(() => {
+   const email = localStorage.getItem('email');
+    if (email) {
+      setUserEmail(email.replace('@', '').replace('.', ''))
+    } else {
+      console.error('User email is missing in localStorage');
+    }
+  }, [])
+
+
+  useEffect(() => {
     dispatch(calculateTotal());
-  },[listData])
+  }, [listData])
 
   async function addHandler(e) {
     e.preventDefault();
     try {
       if (isEdit) {
         const { id, ...expenseData } = data;
+        console.log(userEmail);
+
         const response = await fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expenses/${userEmail}/${id}.json`, {
           method: 'PUT',
           body: JSON.stringify(expenseData),
@@ -49,6 +61,7 @@ const ExpenseForm = () => {
           }
         })
 
+        console.log(response);
 
         if (!response.ok) {
           alert('Failed to update expense')
@@ -63,13 +76,14 @@ const ExpenseForm = () => {
       }
 
       setData({ date: '', category: '', description: '', amount: '' });
-      
+
     } catch (error) {
       console.error("Error handling expense:", error);
     }
   }
-  
-  
+  console.log(listData)
+
+
 
   return (
     <>
