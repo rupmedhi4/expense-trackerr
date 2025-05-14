@@ -41,7 +41,7 @@ const ExpenseForm = () => {
     try {
       if (isEdit) {
         const { id, ...expenseData } = data;
-        const response = await fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/${userEmail}/${id}.json`, {
+        const response = await fetch(`https://expence-tracker-c3991-default-rtdb.firebaseio.com/expenses/${userEmail}/${id}.json`, {
           method: 'PUT',
           body: JSON.stringify(expenseData),
           headers: {
@@ -49,10 +49,12 @@ const ExpenseForm = () => {
           }
         })
 
+
         if (!response.ok) {
-          throw new Error('Failed to update expense');
+          alert('Failed to update expense')
         }
         dispatch(fetchExpenses());
+
         setIsEdit(false);
         alert("update successfully")
       } else {
@@ -60,14 +62,14 @@ const ExpenseForm = () => {
         alert("expense add successfully")
       }
 
-
       setData({ date: '', category: '', description: '', amount: '' });
-
+      
     } catch (error) {
       console.error("Error handling expense:", error);
     }
   }
-
+  
+  
 
   return (
     <>

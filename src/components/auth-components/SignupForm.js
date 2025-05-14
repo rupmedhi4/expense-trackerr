@@ -21,12 +21,12 @@ const SignupForm = () => {
     try {
       const result = await dispatch(signupUser({ email, password }));
 
-      if (result.type === 'auth/signupUser/fulfilled') {
-        console.log(result);
-        
+      if (result.type === 'auth/signupUser/fulfilled') {        
         const token = result.payload;
-
+        localStorage.setItem("token",token)
+        localStorage.setItem("email",email)
         await dispatch(sendVerificationEmail(token));
+        alert("Sign up successful")
         navigate('/confirmEmail');
       }
     } catch (err) {

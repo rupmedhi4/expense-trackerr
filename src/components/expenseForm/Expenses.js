@@ -19,7 +19,6 @@ const Expenses = () => {
     <div className={`expenses-container ${isDarkTheme ? 'dark-theme' : ''}`}>
       <ExpenseFormHeader toggleTheme={toggleTheme} isDarkTheme={isDarkTheme} />
       <ExpenseForm />
-      <ShowingExpenses />
     </div>
   );
 };

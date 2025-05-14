@@ -32,7 +32,7 @@ const ExpenseFormHeader = ({ toggleTheme, isDarkTheme }) => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/');
+    navigate('/login');
   };
 
   const activePremiumHandler = () => {

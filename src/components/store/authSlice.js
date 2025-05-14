@@ -12,9 +12,11 @@ export const signupUser = createAsyncThunk(
         body: JSON.stringify({ email, password, returnSecureToken: true }),
         headers: { 'Content-Type': 'application/json' },
       });
-
+      
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error?.message || 'Signup failed!');
+      if (!res.ok){
+        return rejectWithValue(data.error.message || 'signup failed');
+      } 
       return data.idToken;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -56,8 +58,8 @@ export const loginUser = createAsyncThunk(
       const userData = await userRes.json();
       const emailVerified = userData.users?.[0]?.emailVerified;
 
-      if (!emailVerified) {
-        throw new Error('Please verify your email before logging in.');
+      if (emailVerified) {
+      localStorage.setItem('email-verified', "true");
       }
 
       
@@ -99,7 +101,6 @@ const authSlice = createSlice({
   initialState: {
     token: localStorage.getItem('token') || '',
     isLogin: !!localStorage.getItem('token'),
-    loading: false,
     error: null,
   },
   reducers: {
@@ -107,6 +108,10 @@ const authSlice = createSlice({
       state.token = '';
       state.isLogin = false;
       localStorage.removeItem('token');
+      localStorage.removeItem('email');
+      localStorage.removeItem('email-verified');
+      localStorage.removeItem('theme');
+      localStorage.removeItem('premium');
     },
   },
   extraReducers: (builder) => {
@@ -135,12 +140,10 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = false;
         state.token = action.payload;
         state.isLogin = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.payload;
       })
       

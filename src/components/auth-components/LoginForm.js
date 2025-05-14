@@ -25,7 +25,7 @@ const LoginForm = () => {
         navigate('/expense');
         alert("login successfully");
       } else {
-        alert(resultAction.payload); // Show error
+        alert(resultAction.payload); 
       }
     } catch (err) {
       alert('Something went wrong!');

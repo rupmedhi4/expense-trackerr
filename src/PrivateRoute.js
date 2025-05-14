@@ -1,14 +1,25 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
-    const token = localStorage.getItem('token'); 
+  const token = localStorage.getItem('token');
+  const emailVerified = localStorage.getItem('email-verified');
+  const location = useLocation();
+
 
   if (!token) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
-  return children;
+  if (location.pathname === '/confirmEmail') {
+    return children;
+  }
+
+  if (emailVerified === 'true') {
+    return children;
+  } else {
+    return <Navigate to="/confirmEmail" />;
+  }
 };
 
 export default PrivateRoute;
