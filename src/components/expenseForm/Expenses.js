@@ -3,21 +3,14 @@ import ExpenseFormHeader from './ExpenseFormHeader';
 import ExpenseForm from './ExpenseForm';
 import ShowingExpenses from './ShowingExpenses';
 import './ExpenseFormHeader.css';
+import { useSelector } from 'react-redux';
 
 const Expenses = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState(
-    localStorage.getItem('theme') === 'dark'
-  );
-
-  const toggleTheme = () => {
-    const newTheme = !isDarkTheme;
-    setIsDarkTheme(newTheme);
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-  };
+  const {isDarkTheme} = useSelector((state) => state.isPremium)
 
   return (
     <div className={`expenses-container ${isDarkTheme ? 'dark-theme' : ''}`}>
-      <ExpenseFormHeader toggleTheme={toggleTheme} isDarkTheme={isDarkTheme} />
+      <ExpenseFormHeader  />
       <ExpenseForm />
     </div>
   );

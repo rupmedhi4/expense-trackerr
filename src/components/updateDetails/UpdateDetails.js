@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaGithub } from "react-icons/fa6";
 import { FiGlobe } from "react-icons/fi";
@@ -9,16 +8,20 @@ import './UpdateDetails.css';
 export default function UpdateDetails() {
     const token = localStorage.getItem("token");
 
-    const nameRef = useRef();
-    const imageRef = useRef();
+    const nameRef = useRef(null);
+    const imageRef = useRef(null);
     const navigate = useNavigate();
 
     async function submitHandler(event) {
         event.preventDefault();
-        if (nameRef.current.value === "" || imageRef.current.value === "") {
+
+        const name = nameRef.current?.value?.trim();
+        const photo = imageRef.current?.value?.trim();
+
+        if (!name || !photo) {
             alert('Enter full details');
+            return;
         }
-        console.log(token);
 
         const res = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCD3T1zGniDm3GD6469cP9cF4nfy-wADwI', {
             method: 'POST',
@@ -27,16 +30,16 @@ export default function UpdateDetails() {
             },
             body: JSON.stringify({
                 idToken: token,
-                displayName: nameRef.current.value,
-                photoUrl: imageRef.current.value,
+                displayName: name,
+                photoUrl: photo,
                 returnSecureToken: true
             })
         });
 
         if (res.ok) {
             alert('Profile updated successfully');
-            nameRef.current.value = "";
-            imageRef.current.value = "";
+            if (nameRef.current) nameRef.current.value = "";
+            if (imageRef.current) imageRef.current.value = "";
             navigate("/expense");
         } else {
             alert('Something went wrong');
@@ -59,25 +62,26 @@ export default function UpdateDetails() {
                 if (response.ok) {
                     const responseData = await response.json();
                     const users = responseData.users;
+
                     if (users && users.length > 0) {
-                        const [{ displayName, photoUrl }] = users;
-                        nameRef.current.value = displayName;
-                        imageRef.current.value = photoUrl;
+                        const [{ displayName = "", photoUrl = "" }] = users;
+                        if (nameRef.current) nameRef.current.value = displayName;
+                        if (imageRef.current) imageRef.current.value = photoUrl;
                     }
                 } else {
                     console.log('Response not okay');
-                    alert("something went wrong")
+                    alert("Something went wrong");
                 }
             } catch (error) {
                 console.error('Error updating account:', error);
-                alert("Error updating account")
+                alert("Error updating account");
             }
-        }
+        };
 
         if (token) {
             updateAccount();
         }
-    }, []);
+    }, [token]);
 
     return (
         <div className="update-details-container">

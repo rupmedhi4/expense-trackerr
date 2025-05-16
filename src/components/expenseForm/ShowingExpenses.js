@@ -22,6 +22,7 @@ export default function ShowingExpenses({ setData, setIsEdit }) {
     dispatch(deleteExpense(id)).then(() => {
       dispatch(calculateTotal());
     });
+    alert("delete expense successfully")
   };
 
   
